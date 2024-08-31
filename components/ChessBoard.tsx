@@ -67,7 +67,7 @@ const ChessBoard = () => {
     });
 
     updateStatus();
-  }, []);
+  }, [game]);
 
   return (
     
