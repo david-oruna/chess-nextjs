@@ -1,3 +1,4 @@
+// components/ChessBoard.tsx
 
 "use client";
 
@@ -6,14 +7,17 @@ import { Chess } from 'chess.js';
 import 'chessboard-element';
 
 const ChessBoard = () => {
-  const boardRef = useRef<any>(null);
+  const boardRef = useRef<ChessBoardElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
   const fenRef = useRef<HTMLDivElement>(null);
   const pgnRef = useRef<HTMLDivElement>(null);
-  const game = new Chess();
+  const gameRef = useRef(new Chess());
 
   useEffect(() => {
     const board = boardRef.current;
+    const game = gameRef.current;
+
+    if (!board) return;
 
     const updateStatus = () => {
       let status = '';
@@ -39,7 +43,7 @@ const ChessBoard = () => {
       if (pgnRef.current) pgnRef.current.innerHTML = game.pgn();
     };
 
-    board.addEventListener('drag-start', (e: any) => {
+    board.addEventListener('drag-start', (e: CustomEvent) => {
       const { source, piece, position, orientation } = e.detail;
 
       if (game.isGameOver() || (game.turn() === 'w' && piece.search(/^b/) !== -1) || (game.turn() === 'b' && piece.search(/^w/) !== -1)) {
@@ -47,7 +51,7 @@ const ChessBoard = () => {
       }
     });
 
-    board.addEventListener('drop', (e: any) => {
+    board.addEventListener('drop', (e: CustomEvent) => {
       const { source, target, setAction } = e.detail;
       const move = game.move({
         from: source,
@@ -67,12 +71,10 @@ const ChessBoard = () => {
     });
 
     updateStatus();
-  }, [game]);
+  }, []);
 
   return (
-    
     <div>
-
       <chess-board ref={boardRef} style={{ width: '400px' }} position="start" draggable-pieces />
       <label>Status:</label>
       <div ref={statusRef}></div>
