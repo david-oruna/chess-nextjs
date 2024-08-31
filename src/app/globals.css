@@ -73,16 +73,14 @@
   }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
 
 html,
 body {
+  text-align: ce;
   max-width: 100vw;
   overflow-x: hidden;
+  display: grid;
+  place-items: center;
 }
 
 body {
