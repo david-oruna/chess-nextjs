@@ -9,8 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "chess.js": "^1.0.0-beta.8",
-    "chessboard-element": "^1.2.0",
+    "chess.js": "latest",
+    "chessboard-element": "latest",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18"
